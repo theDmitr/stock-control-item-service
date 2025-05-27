@@ -1,12 +1,12 @@
-package dmitr.sara;
+package dmitr.stockControl.itemService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Sara {
+public class ItemServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Sara.class, args);
+        SpringApplication.run(ItemServiceApplication.class, args);
     }
 }
