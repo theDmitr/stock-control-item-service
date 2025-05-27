@@ -5,6 +5,7 @@ import dmitr.stockControl.itemService.model.featureListChoice.FeatureListChoiceD
 import dmitr.stockControl.itemService.model.featureListChoice.FeatureListChoiceUpdateDto;
 import dmitr.stockControl.itemService.service.face.featureListChoice.FeatureListChoiceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,17 +33,20 @@ public class FeatureListChoiceRestController {
         return featureListChoiceService.getFeatureListChoicesByFeatureId(featureId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public FeatureListChoiceDto createFeatureListChoice(@RequestBody FeatureListChoiceCreateDto featureListChoiceDto) {
         return featureListChoiceService.createFeatureListChoice(featureListChoiceDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{featureListChoiceId}")
     public FeatureListChoiceDto updateFeatureListChoice(@PathVariable UUID featureListChoiceId,
                                               @RequestBody FeatureListChoiceUpdateDto featureListChoiceDto) {
         return featureListChoiceService.updateFeatureListChoice(featureListChoiceId, featureListChoiceDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{featureListChoiceId}")
     public void deleteFeatureListChoice(@PathVariable UUID featureListChoiceId) {
         featureListChoiceService.deleteFeatureListChoice(featureListChoiceId);

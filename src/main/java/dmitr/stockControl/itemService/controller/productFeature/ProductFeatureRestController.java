@@ -6,6 +6,7 @@ import dmitr.stockControl.itemService.model.productFeature.ProductFeatureDto;
 import dmitr.stockControl.itemService.model.productFeature.ProductFeatureViewDto;
 import dmitr.stockControl.itemService.service.face.productFeature.ProductFeatureService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +29,13 @@ public class ProductFeatureRestController {
         return productFeatureService.getProductFeaturesToView(productId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public ProductFeatureDto createProductFeature(@RequestBody ProductFeatureCreateDto productFeatureDto) {
         return productFeatureService.createProductFeature(productFeatureDto);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/product/{productId}/feature/{featureId}")
     public void deleteProductFeature(@PathVariable UUID productId,
                                      @PathVariable UUID featureId) {
