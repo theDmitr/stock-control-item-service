@@ -1,8 +1,6 @@
 package dmitr.stockControl.itemService.controller.category;
 
-import dmitr.stockControl.itemService.model.category.CategoryCreateDto;
-import dmitr.stockControl.itemService.model.category.CategoryDto;
-import dmitr.stockControl.itemService.model.category.CategoryUpdateDto;
+import dmitr.stockControl.itemService.model.category.*;
 import dmitr.stockControl.itemService.service.face.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,5 +43,10 @@ public class CategoryRestController {
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable UUID categoryId) {
         categoryService.deleteCategory(categoryId);
+    }
+
+    @GetMapping("/list/page-view")
+    public List<CategoryPageViewDto> getCategoriesToPage(CategoryPageViewFilterDto filter) { //todo Pageable pageable
+        return categoryService.getCategoriesToPage(filter);
     }
 }

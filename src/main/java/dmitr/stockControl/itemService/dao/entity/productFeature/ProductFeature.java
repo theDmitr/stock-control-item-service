@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,5 +19,5 @@ public class ProductFeature {
     private ProductFeatureId id;
 
     @Column(name = "value", nullable = false)
-    private UUID featureListChoiceId;
+    private String value;
 }

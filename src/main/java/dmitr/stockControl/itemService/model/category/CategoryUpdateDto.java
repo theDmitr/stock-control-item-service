@@ -13,6 +13,5 @@ import java.util.UUID;
 public class CategoryUpdateDto implements CategoryBaseValidation {
 
     private String name;
-    private String description;
     private UUID parentCategoryId;
 }

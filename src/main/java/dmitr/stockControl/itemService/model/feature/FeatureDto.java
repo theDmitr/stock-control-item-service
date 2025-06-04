@@ -13,5 +13,4 @@ public class FeatureDto {
 
     private UUID id;
     private String name;
-    private String description;
 }

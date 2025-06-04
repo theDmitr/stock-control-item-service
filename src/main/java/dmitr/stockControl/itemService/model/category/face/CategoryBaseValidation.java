@@ -5,6 +5,5 @@ import java.util.UUID;
 public interface CategoryBaseValidation {
 
     String getName();
-    String getDescription();
     UUID getParentCategoryId();
 }

@@ -8,4 +8,5 @@ public interface ProductBaseValidation {
     String getDescription();
     UUID getCategoryId();
     UUID getMakerId();
+    Float getPrice();
 }

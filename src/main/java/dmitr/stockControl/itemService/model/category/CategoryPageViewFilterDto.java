@@ -1,17 +1,13 @@
 package dmitr.stockControl.itemService.model.category;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class CategoryDto {
+public class CategoryPageViewFilterDto {
 
-    private UUID id;
-    private String name;
     private UUID parentCategoryId;
 }

@@ -11,5 +11,4 @@ import lombok.Setter;
 public class FeatureUpdateDto implements FeatureBaseValidation {
 
     private String name;
-    private String description;
 }

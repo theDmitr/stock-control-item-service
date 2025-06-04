@@ -65,12 +65,8 @@ public class FeatureServiceImpl implements FeatureService {
 
     private void baseValidation(FeatureBaseValidation feature) {
         String name = feature.getName();
-        String description = feature.getDescription();
         if (isBlank(name)) {
             throw new ValidationException("feature.validation.name.required");
-        }
-        if (isBlank(description)) {
-            throw new ValidationException("feature.validation.description.required");
         }
     }
 

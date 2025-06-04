@@ -1,8 +1,6 @@
 package dmitr.stockControl.itemService.service.face.product;
 
-import dmitr.stockControl.itemService.model.product.ProductCreateDto;
-import dmitr.stockControl.itemService.model.product.ProductDto;
-import dmitr.stockControl.itemService.model.product.ProductUpdateDto;
+import dmitr.stockControl.itemService.model.product.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +9,8 @@ public interface ProductService {
 
     List<ProductDto> getProducts();
     ProductDto getProduct(UUID id);
+    List<ProductPageViewDto> getProductsToPage(ProductsToPageFilterDto filter);
+    ProductInfoDto getProductInfo(UUID productId);
     ProductDto createProduct(ProductCreateDto productDto);
     ProductDto updateProduct(UUID productId, ProductUpdateDto productDto);
     void deleteProduct(UUID id);

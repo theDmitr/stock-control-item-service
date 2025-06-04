@@ -1,9 +1,6 @@
 package dmitr.stockControl.itemService.dao.entity.feature;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +23,10 @@ public class Feature {
     @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 256)
-    private String description;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private FeatureType type;
+
+    @Column(name = "unit")
+    private String unit;
 }

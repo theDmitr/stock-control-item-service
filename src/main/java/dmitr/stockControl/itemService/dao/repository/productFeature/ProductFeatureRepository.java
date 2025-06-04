@@ -20,14 +20,14 @@ public interface ProductFeatureRepository extends JpaRepository<ProductFeature, 
     """)
     List<ProductFeature> findByProductId(UUID productId);
 
-    @Query("""
-            SELECT new dmitr.stockControl.itemService.model.productFeature.ProductFeatureViewDto(
-                f.name, flc.value
-            )
-            FROM ProductFeature pf
-                JOIN Feature f ON pf.id.featureId = f.id
-                JOIN FeatureListChoice flc ON pf.featureListChoiceId = flc.id
-            WHERE pf.id.productId = :productId
-    """)
-    List<ProductFeatureViewDto> findProductFeaturesToView(UUID productId);
+//    @Query("""
+//            SELECT new dmitr.stockControl.itemService.model.productFeature.ProductFeatureViewDto(
+//                f.name, flc.value
+//            )
+//            FROM ProductFeature pf
+//                JOIN Feature f ON pf.id.featureId = f.id
+//                JOIN FeatureListChoice flc ON pf.value = flc.id
+//            WHERE pf.id.productId = :productId
+//    """)
+//    List<ProductFeatureViewDto> findProductFeaturesToView(UUID productId);
 }

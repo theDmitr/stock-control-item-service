@@ -1,5 +1,7 @@
 package dmitr.stockControl.itemService.service.impl.productFeature;
 
+import dmitr.stockControl.itemService.dao.entity.feature.Feature;
+import dmitr.stockControl.itemService.dao.entity.featureListChoice.FeatureListChoice;
 import dmitr.stockControl.itemService.dao.entity.productFeature.ProductFeature;
 import dmitr.stockControl.itemService.dao.entity.productFeature.ProductFeatureId;
 import dmitr.stockControl.itemService.dao.repository.feature.FeatureRepository;
@@ -48,7 +50,38 @@ public class ProductFeatureServiceImpl implements ProductFeatureService {
         productRepository.findById(productId)
                 .orElseThrow(NotFoundProductException::new);
 
-        return productFeatureRepository.findProductFeaturesToView(productId);
+        List<ProductFeature> productFeatures = productFeatureRepository.findByProductId(productId);
+
+        return productFeatures.stream()
+                .map(productFeature -> {
+                    UUID featureId = productFeature.getId().getFeatureId();
+                    Feature feature = featureRepository.findById(featureId)
+                            .orElseThrow(NotFoundFeatureException::new);
+
+                    String featureName = feature.getName();
+                    String featureValue = null;
+
+                    switch (feature.getType()) {
+                        case ENUM -> {
+                            UUID featureListChoiceId = UUID.fromString(productFeature.getValue());
+                            FeatureListChoice listChoice = featureListChoiceRepository.findById(featureListChoiceId)
+                                    .orElseThrow(NotFoundFeatureListChoiceException::new);
+                            featureValue = listChoice.getValue();
+                        }
+                        case STRING -> {
+                            featureValue = productFeature.getValue();
+                        }
+                        case BOOLEAN -> {
+                            featureValue = Boolean.parseBoolean(productFeature.getValue()) ? "Да" : "Нет";
+                        }
+                        case NUMBER -> {
+                            featureValue = productFeature.getValue() + " " + feature.getUnit();
+                        }
+                    }
+
+                    return new ProductFeatureViewDto(featureName, featureValue);
+                })
+                .toList();
     }
 
     @Override

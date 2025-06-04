@@ -1,14 +1,13 @@
 package dmitr.stockControl.itemService.dao.entity.product;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -34,4 +33,10 @@ public class Product {
 
     @Column(name = "categoryId")
     private UUID categoryId;
+
+    @Column(name = "price")
+    private Float price;
+
+    @OneToMany(mappedBy = "productId", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ProductImage> images = new ArrayList<>();
 }

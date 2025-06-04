@@ -1,8 +1,6 @@
 package dmitr.stockControl.itemService.service.face.category;
 
-import dmitr.stockControl.itemService.model.category.CategoryCreateDto;
-import dmitr.stockControl.itemService.model.category.CategoryDto;
-import dmitr.stockControl.itemService.model.category.CategoryUpdateDto;
+import dmitr.stockControl.itemService.model.category.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,4 +12,5 @@ public interface CategoryService {
     CategoryDto createCategory(CategoryCreateDto categoryDto);
     CategoryDto updateCategory(UUID categoryId, CategoryUpdateDto categoryDto);
     void deleteCategory(UUID id);
+    List<CategoryPageViewDto> getCategoriesToPage(CategoryPageViewFilterDto filter);
 }

@@ -26,9 +26,9 @@ public class Category {
     @Column(name = "name", nullable = false, length = 64)
     private String name;
 
-    @Column(name = "description", nullable = false, length = 256)
-    private String description;
-
     @Column(name = "parentCategoryId")
     private UUID parentCategoryId;
+
+    @Column(name = "image")
+    private String image;
 }

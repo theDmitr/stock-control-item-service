@@ -16,4 +16,5 @@ public class ProductDto {
     private String description;
     private UUID categoryId;
     private UUID makerId;
+    private Float price;
 }

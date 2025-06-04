@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProductFeatureDto {
 
     private ProductFeatureId id;
-    private UUID featureListChoiceId;
+    private String value;
 }

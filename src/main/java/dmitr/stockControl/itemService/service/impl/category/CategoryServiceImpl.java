@@ -5,9 +5,7 @@ import dmitr.stockControl.itemService.dao.repository.category.CategoryRepository
 import dmitr.stockControl.itemService.exception.extended.ValidationException;
 import dmitr.stockControl.itemService.exception.extended.category.NotFoundCategoryException;
 import dmitr.stockControl.itemService.helper.mapper.category.CategoryMapper;
-import dmitr.stockControl.itemService.model.category.CategoryCreateDto;
-import dmitr.stockControl.itemService.model.category.CategoryDto;
-import dmitr.stockControl.itemService.model.category.CategoryUpdateDto;
+import dmitr.stockControl.itemService.model.category.*;
 import dmitr.stockControl.itemService.model.category.face.CategoryBaseValidation;
 import dmitr.stockControl.itemService.service.face.category.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static dmitr.stockControl.itemService.utils.Constants.EMPTY_IMAGE_URL;
 import static io.micrometer.common.util.StringUtils.isBlank;
 
 @Service
@@ -31,6 +30,24 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getCategories() {
         List<Category> categories = categoryRepository.findAll();
         return categoryMapper.toDto(categories);
+    }
+
+    @Override
+    public List<CategoryPageViewDto> getCategoriesToPage(CategoryPageViewFilterDto filter) {
+        return categoryRepository.findAllToPageView()
+                .stream()
+                .filter(c -> {
+                    if (filter.getParentCategoryId() != null) {
+                        return filter.getParentCategoryId().equals(c.getParentCategoryId());
+                    }
+                    return c.getParentCategoryId() == null;
+                })
+                .peek(c -> {
+                    if (c.getImage() == null) {
+                        c.setImage(EMPTY_IMAGE_URL);
+                    }
+                })
+                .toList();
     }
 
     @Override
@@ -68,11 +85,6 @@ public class CategoryServiceImpl implements CategoryService {
         String name = category.getName();
         if (isBlank(name)) {
             throw new ValidationException("category.validation.name.required");
-        }
-
-        String description = category.getDescription();
-        if (isBlank(description)) {
-            throw new ValidationException("category.validation.description.required");
         }
 
         UUID parentCategoryId = category.getParentCategoryId();
