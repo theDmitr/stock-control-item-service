@@ -1,11 +1,12 @@
 package dmitr.stockControl.itemService.service.impl.product;
 
+import dmitr.stockControl.itemService.controller.product.request.ProductSearchFilterDto;
+import dmitr.stockControl.itemService.controller.product.response.ProductStockResponseDto;
 import dmitr.stockControl.itemService.dao.entity.product.Product;
 import dmitr.stockControl.itemService.dao.entity.product.ProductImage;
 import dmitr.stockControl.itemService.dao.repository.category.CategoryRepository;
 import dmitr.stockControl.itemService.dao.repository.maker.MakerRepository;
 import dmitr.stockControl.itemService.dao.repository.product.ProductRepository;
-import dmitr.stockControl.itemService.dao.repository.productFeature.ProductFeatureRepository;
 import dmitr.stockControl.itemService.exception.extended.ValidationException;
 import dmitr.stockControl.itemService.exception.extended.category.NotFoundCategoryException;
 import dmitr.stockControl.itemService.exception.extended.feature.NotFoundFeatureException;
@@ -38,7 +39,6 @@ public class ProductServiceImpl implements ProductService {
     private final MakerRepository makerRepository;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private final ProductFeatureRepository productFeatureRepository;
 
     private final ProductFeatureService productFeatureService;
 
@@ -94,6 +94,19 @@ public class ProductServiceImpl implements ProductService {
         }
 
         return productsToPage;
+    }
+
+    @Override
+    public List<ProductStockResponseDto> getProductsToStockByFilter(ProductSearchFilterDto filter) {
+        return productRepository.findBySearchFilter(filter)
+                .stream()
+                .map(p -> ProductStockResponseDto.builder()
+                        .id(p.getId())
+                        .name(p.getName())
+                        .image(getProductImageLinks(p).getLast())
+                        .build()
+                )
+                .toList();
     }
 
     @Override

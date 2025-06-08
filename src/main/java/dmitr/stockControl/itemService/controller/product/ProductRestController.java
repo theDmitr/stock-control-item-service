@@ -1,13 +1,13 @@
 package dmitr.stockControl.itemService.controller.product;
 
+import dmitr.stockControl.itemService.controller.product.request.ProductSearchFilterDto;
+import dmitr.stockControl.itemService.controller.product.response.ProductStockResponseDto;
 import dmitr.stockControl.itemService.model.product.*;
 import dmitr.stockControl.itemService.service.face.product.ProductService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +31,11 @@ public class ProductRestController {
     @GetMapping("/list/page-view")
     public List<ProductPageViewDto> getProductsToPage(ProductsToPageFilterDto filter) { //todo Pageable pageable
         return productService.getProductsToPage(filter);
+    }
+
+    @PostMapping("/search/stock")
+    public List<ProductStockResponseDto> getProductsToStockByFilter(@RequestBody ProductSearchFilterDto filter) {
+        return productService.getProductsToStockByFilter(filter);
     }
 
     @GetMapping("/{productId}/info")
