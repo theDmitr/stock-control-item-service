@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -18,6 +19,8 @@ import java.util.UUID;
 public class ProductImage {
 
     @Id
+    @UuidGenerator
+    @Column(name = "id")
     private UUID id;
 
     @Column(nullable = false)

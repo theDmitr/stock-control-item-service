@@ -34,7 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryPageViewDto> getCategoriesToPage(CategoryPageViewFilterDto filter) {
-        return categoryRepository.findAllToPageView()
+        List<CategoryPageViewDto> categories = categoryRepository.findAllToPageView();
+        return categories
                 .stream()
                 .filter(c -> {
                     if (filter.getParentCategoryId() != null) {
@@ -46,6 +47,10 @@ public class CategoryServiceImpl implements CategoryService {
                     if (c.getImage() == null) {
                         c.setImage(EMPTY_IMAGE_URL);
                     }
+                    boolean hasChild = categories.stream()
+                                    .anyMatch(cc -> cc.getParentCategoryId() != null &&
+                                            cc.getParentCategoryId().equals(c.getId()));
+                    c.setHasChild(hasChild);
                 })
                 .toList();
     }
